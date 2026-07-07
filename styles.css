@@ -1,0 +1,360 @@
+/* ==========================================
+   0. DESIGN SYSTEM VARIABLES & FONTS
+   ========================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #ffffff;
+    --card-bg: #ffffff;
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #6b7280;
+    --border-color: #d1d5db;
+    
+    --accent-primary: #000000;
+    --accent-hover: #1f2937;
+    --accent-text: #ffffff;
+    --focus-ring: #2563eb;
+    
+    --progress-track: #e5e7eb;
+    --progress-fill: #10b981;
+    --valid-color: #10b981;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #0b0f19;
+        --card-bg: #111827;
+        --text-primary: #f9fafb;
+        --text-secondary: #9ca3af;
+        --text-muted: #6b7280;
+        --border-color: #374151;
+        
+        --accent-primary: #f9fafb;
+        --accent-hover: #e5e7eb;
+        --accent-text: #0b0f19;
+        --focus-ring: #3b82f6;
+        
+        --progress-track: #1f2937;
+        --progress-fill: #34d399;
+        --valid-color: #34d399;
+    }
+}
+
+/* ==========================================
+   1. GLOBAL RESET & WRAPPER HIERARCHY
+   ========================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.form-header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.form-header p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ==========================================
+   2. ACCESSIBLE COMPONENT STRUCTURES
+   ========================================== */
+.accessible-form {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 32px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+/* Progress Indicator Layout */
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.progress-title {
+    color: var(--text-secondary);
+}
+
+.progress-percent {
+    color: var(--progress-fill);
+}
+
+.progress-bar-track {
+    width: 100%;
+    height: 6px;
+    background-color: var(--progress-track);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background-color: var(--progress-fill);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+/* Core Input Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.input-password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 0.95rem;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input-password-wrapper input {
+    padding-right: 44px;
+}
+
+.form-group input:focus {
+    border-color: var(--focus-ring);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+/* ==========================================
+   3. PURE CSS ICONS8 TOGGLE ARCHITECTURE
+   ========================================== */
+.password-toggle-check {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.password-toggle-btn img {
+    width: 100%;
+    height: 100%;
+    filter: invert(0.1) brightness(0.1); /* Formats white Icons8 assets to dark in Light Mode */
+    opacity: 0.45;
+    position: absolute;
+    transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.password-toggle-btn:hover img {
+    opacity: 0.85;
+}
+
+/* Interactive Toggling States (Swaps visibility when checked) */
+.password-toggle-check ~ .password-toggle-btn .icon-hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.password-toggle-check:checked ~ .password-toggle-btn .icon-show {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.password-toggle-check:checked ~ .password-toggle-btn .icon-hide {
+    opacity: 0.45;
+    pointer-events: auto;
+}
+
+.password-toggle-check:checked ~ .password-toggle-btn:hover .icon-hide {
+    opacity: 0.85;
+}
+
+/* Keyboard Focus Outline Ring for Accessibility */
+.password-toggle-check:focus-visible ~ .password-toggle-btn {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+/* Hint & Checklists */
+.field-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.validation-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 2px;
+}
+
+.check-item {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.check-item span {
+    font-size: 0.9rem;
+    font-weight: bold;
+    opacity: 0.5;
+}
+
+.check-item.valid {
+    color: var(--valid-color);
+}
+
+.check-item.valid span {
+    opacity: 1;
+}
+
+/* Checkbox Layout Row */
+.form-checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.form-checkbox-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    accent-color: var(--focus-ring);
+    cursor: pointer;
+}
+
+.form-checkbox-group label {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+}
+
+.form-link {
+    color: var(--focus-ring);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.form-link:hover {
+    text-decoration: underline;
+}
+
+/* Submit Trigger */
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    background-color: var(--accent-primary);
+    color: var(--accent-text);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    margin-top: 4px;
+}
+
+.btn-submit:hover {
+    background-color: var(--accent-hover);
+}
+
+.btn-submit:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+}
+
+/* System Footers */
+.project-footer {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 0.825rem;
+    color: var(--text-secondary);
+    border-top: 1px dashed var(--border-color);
+}
+
+.project-footer p {
+    margin-bottom: 4px;
+}
+
+.project-footer .credit-text {
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+/* Dark Mode Overrides for Icons8 Elements */
+@media (prefers-color-scheme: dark) {
+    .password-toggle-btn img {
+        filter: none; /* Keeps original clean white lines sharp across dark panels */
+    }
+}
