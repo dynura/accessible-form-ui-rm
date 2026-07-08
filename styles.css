@@ -1,6 +1,4 @@
-/* ==========================================
-   0. DESIGN SYSTEM VARIABLES & FONTS
-   ========================================== */
+/* 0. DESIGN SYSTEM VARIABLES & FONTS */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
@@ -41,9 +39,7 @@
     }
 }
 
-/* ==========================================
-   1. GLOBAL RESET & WRAPPER HIERARCHY
-   ========================================== */
+/* 1. GLOBAL RESET & WRAPPER HIERARCHY */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -84,9 +80,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* ==========================================
-   2. ACCESSIBLE COMPONENT STRUCTURES
-   ========================================== */
+/* 2. ACCESSIBLE COMPONENT STRUCTURES */
 .accessible-form {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -177,9 +171,7 @@ body {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* ==========================================
-   3. PURE CSS ICONS8 TOGGLE ARCHITECTURE
-   ========================================== */
+/* 3. PURE CSS ICONS8 TOGGLE ARCHITECTURE */
 .password-toggle-check {
     position: absolute;
     opacity: 0;
